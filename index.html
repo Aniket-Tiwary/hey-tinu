@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey You 🌻</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Starting Screen to unlock audio -->
+  <div class="start-screen" id="start-screen">
+    <button class="start-btn" id="start-btn">Hii Tinuuu!! Please open this</button>
+  </div>
+
+  <!-- Floating petals -->
+  <div class="petals-container" id="petals"></div>
+
+  <!-- Background -->
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- Text floats directly on the page, no card -->
+  <div class="page-center">
+    <div class="text-area">
+      <span id="typed-text"></span><span class="cursor" id="cursor">_</span>
+    </div>
+
+    <!-- Heart — appears after typing -->
+    <div class="heart-container" id="heart-container">
+      <button class="heart-btn" id="heart-btn">
+        <span class="heart-icon" id="heart-icon">♡</span>
+        <span class="heart-label">something for you</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Fullscreen video — no controls, loops like a reel -->
+  <div class="video-screen" id="video-screen">
+    <video id="love-video" loop playsinline>
+      <source src="video.MOV" type="video/quicktime" />
+      <source src="video.MOV" type="video/mp4" />
+    </video>
+    <!-- Tap anywhere to exit -->
+    <div class="video-close-hint" id="video-close-hint">tap anywhere to close</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

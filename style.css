@@ -1,0 +1,281 @@
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0f0906;
+}
+
+/* ═══════════════════════════════════════
+   START SCREEN
+═══════════════════════════════════════ */
+.start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  /* Dark blurred overlay over the sunflowers */
+  background: rgba(15, 9, 6, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s ease, visibility 1.2s;
+}
+
+.start-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.start-btn {
+  background: none;
+  border: none;
+  color: #fff8ee;
+  font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", monospace;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+  color: #ffd97d;
+}
+
+/* ═══════════════════════════════════════
+   BACKGROUND
+═══════════════════════════════════════ */
+.bg-image {
+  position: fixed;
+  inset: 0;
+  background: url('sunflower1_landscape.jpg') center 60% / cover no-repeat;
+  z-index: 0;
+}
+
+/* Very light warm vignette — just enough contrast for text */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(10, 5, 0, 0.28) 100%);
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════
+   FLOATING PETALS
+═══════════════════════════════════════ */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  opacity: 0;
+  animation: petalFall linear infinite;
+  user-select: none;
+}
+
+@keyframes petalFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0);    opacity: 0; }
+  6%   { opacity: 0.8; }
+  88%  { opacity: 0.55; }
+  100% { transform: translateY(112vh) rotate(600deg) translateX(45px); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   PAGE CENTER — text floats on background
+═══════════════════════════════════════ */
+.page-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem 3rem;
+}
+
+/* ═══════════════════════════════════════
+   TEXT — VT323, no card, no border
+═══════════════════════════════════════ */
+.text-area {
+  width: 100%;
+  max-width: 680px;
+  text-align: left;
+
+  font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", monospace;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #fff8ee;
+  /* Subtle shadow so text is legible over the photo */
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+
+  /* Gentle fade-in when the page loads */
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  color: #ffd97d;
+  font-size: 1.15rem;
+  margin-left: 1px;
+  animation: blink 1s step-end infinite;
+  vertical-align: baseline;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   HEART BUTTON
+═══════════════════════════════════════ */
+.heart-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: none;
+}
+
+.heart-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.heart-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.heart-icon {
+  font-size: 2.8rem;
+  color: #ff3333;
+  display: block;
+  animation: heartPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 51, 51, 0.7));
+  transition: transform 0.2s ease, filter 0.2s ease;
+  line-height: 1;
+  user-select: none;
+}
+
+.heart-btn:hover .heart-icon {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 24px rgba(255, 51, 51, 0.9));
+}
+
+.heart-label {
+  font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 248, 238, 0.65);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  animation: labelFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1);    }
+  50%       { transform: scale(1.14); }
+}
+
+@keyframes labelFloat {
+  0%, 100% { opacity: 0.55; transform: translateY(0); }
+  50%       { opacity: 0.9;  transform: translateY(-3px); }
+}
+
+/* ═══════════════════════════════════════
+   FULLSCREEN VIDEO — no controls, pure reel
+═══════════════════════════════════════ */
+.video-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.video-screen.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.video-screen video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Subtle "tap to close" hint — fades out after a couple seconds */
+.video-close-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  animation: hintFade 4s ease forwards;
+}
+
+@keyframes hintFade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 600px) {
+  .text-area {
+    font-size: 1.65rem;
+  }
+  .page-center {
+    padding: 2rem 1.5rem;
+  }
+}
