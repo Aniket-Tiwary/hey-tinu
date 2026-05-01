@@ -86,6 +86,16 @@ heartBtn.addEventListener("click", () => {
   void closeHint.offsetWidth; // reflow
   closeHint.style.animation = "";
 
+  // Set source based on screen width (fixes iOS Safari media query bugs)
+  const isMobile = window.innerWidth <= 768;
+  const targetSrc = isMobile ? "mobile.mp4" : "video.MOV";
+  
+  // Only update src if it's different to avoid reloading unnecessarily
+  if (!loveVideo.getAttribute("src") || !loveVideo.getAttribute("src").includes(targetSrc)) {
+    loveVideo.src = targetSrc;
+    loveVideo.load();
+  }
+
   loveVideo.currentTime = 0;
   loveVideo.play().catch(() => {
     // Autoplay blocked on some browsers — user interaction already happened so it should be fine
